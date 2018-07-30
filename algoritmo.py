@@ -29,10 +29,10 @@ from time import gmtime, strftime
 # límites Lat y Long
 LONG_MIN = -115
 LONG_MAX = -111
-LAT_MIN = 29
-LAT_MAX = 32
+LAT_MIN  =  29
+LAT_MAX  =  32
 
-PATH = "/home/jorge/Documents/Research/imagenesCaborca"
+PATH = "/home/jorge/Documents/Research/procesamiento_he5"
 
 array_URLs = ["https://acdisc.gesdisc.eosdis.nasa.gov/data/Aura_OMI_Level3/OMNO2d.003/2018/",
               "https://acdisc.gsfc.nasa.gov/data/Aura_OMI_Level3/OMDOAO3e.003/2018/",
@@ -344,13 +344,13 @@ def descarga_de_archivos():
     fechaPronostico = strftime("%Y-%m-%d")
 
     # cambiar a carpeta data
-    os.chdir("data")
+    os.chdir("{}/data".format(PATH))
 
     # crear directorio de fecha de descarga
-    os.mkdir(fechaPronostico)
+    os.mkdir("{}/data/{}".format(PATH,fechaPronostico))
 
     # cambiar de directorio a data
-    os.chdir(fechaPronostico)
+    os.chdir("{}/data/{}".format(PATH,fechaPronostico))
 
     # ciclo para la descarga de información
     for URL in array_URLs:
