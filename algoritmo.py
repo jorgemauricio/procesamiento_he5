@@ -25,6 +25,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import time
 from time import gmtime, strftime
+import schedule
+
 
 # límites Lat y Long
 LONG_MIN = -115
@@ -45,9 +47,8 @@ array_URLs = ["https://acdisc.gesdisc.eosdis.nasa.gov/data/Aura_OMI_Level3/OMNO2
 array_Archivo = []
 
 
-
-# función main
-def main():
+# JOB
+def job():
     # fecha de la descarga
     # descarga de información
     descarga_de_archivos()
@@ -56,7 +57,6 @@ def main():
     procesamientoSO2()
     procesamientoTO3()
     procesamientoAERO()
-
 
 # función para procesar NO2
 def procesamientoNO2():
@@ -382,5 +382,8 @@ def descarga_de_archivos():
 
         os.system("wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --keep-session-cookies {}".format(URL_DESCARGA))
 
-if __name__ == '__main__':
-    main()
+schedule.every().day.at("07:00").do(job)
+
+while 1:
+    schedule.run_pending()
+    time.sleep(1)
